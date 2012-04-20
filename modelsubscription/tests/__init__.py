@@ -17,9 +17,8 @@ class SubscriptableMixinTest(TestCase):
         self.test = TestModel()
         self.test.save()
 
-        self.subscription = Subscription(user=self.user1, typ='email')
+        self.subscription = Subscription(user=self.user1, typ='email', content_object=self.test)
         self.subscription.save()
-        self.test.subscriptions.add(self.subscription)
 
     def test_post_save(self):
         self.assertEqual(len(mail.outbox), 0)

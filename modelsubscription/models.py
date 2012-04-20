@@ -3,12 +3,17 @@ from django.contrib.auth.models import User
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from .handlers import subscriptionhandlers
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.contenttypes import generic
 
 from .settings import *
 
 SUBSCRIPTION_TYPE_CHOICES = [ (x,x) for x in SUBSCRIPTION_TYPES.keys() ]
 
 class Subscription(models.Model):
+    content_type = models.ForeignKey(ContentType)
+    object_id = models.PositiveIntegerField()
+    content_object = generic.GenericForeignKey('content_type', 'object_id')
     # Email for anonymous subscription, and user for registered user subscription
     email = models.EmailField(db_index=True, null=True, blank=True)
     user = models.ForeignKey(User, related_name='subscribed_models', db_index=True, null=True, blank=True)
@@ -21,7 +26,7 @@ class Subscription(models.Model):
             handler.run(self, obj, *extra_args)
 
 class SubscriptableMixin(models.Model):
-    subscriptions = models.ManyToManyField(Subscription, related_name="subscribed_objects")
+    subscriptions = generic.GenericRelation(Subscription)
 
     class Meta:
         abstract = True
@@ -32,23 +37,23 @@ class SubscriptableMixin(models.Model):
             subscription.run(self)
 
     def subscribe_user(self, user, typ):
-        subscription = Subscription(user=user, typ=typ)
+        subscription = Subscription(user=user, typ=typ, content_object=self)
         subscription.save()
         self.subscriptions.add(subscription)
 
     def subscribe_email(self, email, typ):
-        subscription = Subscription(email=email, typ=typ)
+        subscription = Subscription(email=email, typ=typ, content_object=self)
         subscription.save()
         self.subscriptions.add(subscription)
 
     def unsubscribe_user(self, user, typ=None):
         if typ != None:
-            Subscription.objects.filter(user=user, typ=typ).delete()
+            self.subscriptions.filter(user=user, typ=typ).delete()
         else:
-            Subscription.objects.filter(user=user).delete()
+            self.subscriptions.filter(user=user).delete()
 
     def unsubscribe_email(self, email, typ=None):
         if typ != None:
-            Subscription.objects.filter(email=email, typ=typ).delete()
+            self.subscriptions.filter(email=email, typ=typ).delete()
         else:
-            Subscription.objects.filter(email=email).delete()
+            self.subscriptions.filter(email=email).delete()
