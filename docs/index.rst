@@ -41,6 +41,7 @@ Add to your subscritable models the mixin modelsubscription.models.Subscriptable
 To subscribe an user to an object use :attr:`modelsubscription.modelsSubscriptableMixin.subscribe_user`
 
 ::
+
     obj = MyModel.objects.get(pk=1)
     obj.subscribe_user(request.user, 'email')
 
@@ -48,12 +49,14 @@ To subscribe an user to an object use :attr:`modelsubscription.modelsSubscriptab
 To subscribe an email to an object use :attr:`modelsubscription.modelsSubscriptableMixin.subscribe_email`
 
 ::
+
     obj = MyModel.objects.get(pk=1)
     obj.subscribe_email('foo@bar.com', 'email')
 
 To unsubscribe an user to an object use :attr:`modelsubscription.modelsSubscriptableMixin.unsubscribe_user`
 
 ::
+
     obj = MyModel.objects.get(pk=1)
     # Unsuscribe one type of subscription
     obj.unsubscribe_user(request.user, 'email')
@@ -64,6 +67,7 @@ To unsubscribe an user to an object use :attr:`modelsubscription.modelsSubscript
 To unsubscribe an email to an object use :attr:`modelsubscription.modelsSubscriptableMixin.unsubscribe_email`
 
 ::
+
     obj = MyModel.objects.get(pk=1)
     # Unsuscribe one type of subscription
     obj.unsubscribe_email('foo@bar.com', 'email')
