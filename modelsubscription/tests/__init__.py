@@ -39,8 +39,8 @@ class SubscriptableMixinTest(TestCase):
 
     def test_unsubscribe_user(self):
         self.assertEqual(Subscription.objects.filter(user=self.user2).count(), 0)
-        self.test.subscribe_user(self.user2, 'email')
-        self.test.subscribe_user(self.user2, 'db')
+        self.assertEqual(self.test.subscribe_user(self.user2, 'email'), 'new')
+        self.assertEqual(self.test.subscribe_user(self.user2, 'db'), 'new')
         self.assertEqual(Subscription.objects.filter(user=self.user2).count(), 2)
         self.test.unsubscribe_user(self.user2, 'email')
         self.assertEqual(Subscription.objects.filter(user=self.user2).count(), 1)

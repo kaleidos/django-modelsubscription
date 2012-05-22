@@ -5,19 +5,34 @@ from django.template.loader import get_template
 from django.template import Context
 
 class EmailHandler(SubscriptionHandlerBase):
+    '''Email Subscription Handler, send an email when is runned'''
+
     @classmethod
-    def run(self, subscription, obj, *args):
+    def run(self, subscription, obj, **kwargs):
+        '''
+        send an email to the subscription.email or the subscription.user.email
+
+        Generate the email text from the templates
+        modelsubscription/email/subject.txt and viter/email/body.txt with
+        \*\*kwargs and invitation in the context.
+        '''
         if subscription.email:
             dst_mail = subscription.email
         else:
             dst_mail = subscription.user.email
-        context = Context({'obj': obj,'subscription': subscription })
-        subject_template = get_template('modelsubscription/email_subject.html')
-        body_template = get_template('modelsubscription/email_body.html')
+        context = Context({'obj': obj, 'subscription': subscription })
+        context.update(kwargs)
+        subject_template = get_template('modelsubscription/email/subject.txt')
+        body_template = get_template('modelsubscription/email/body.txt')
+
+        subject = subject_template.render(context)
+        subject = ' '.join(subject.split('\n')) # No newlines in subject lines allowed
+
+        body = body_template.render(context)
+
         send_mail(
-                subject_template.render(context),
-                body_template.render(context),
+                subject,
+                body,
                 settings.SUBSCRIPTION_EMAIL_FROM,
-                [subscription.email],
-                fail_silently=True
+                [dst_mail]
         )
