@@ -13,7 +13,7 @@ class EmailHandler(SubscriptionHandlerBase):
         send an email to the subscription.email or the subscription.user.email
 
         Generate the email text from the templates
-        modelsubscription/email/subject.txt and viter/email/body.txt with
+        modelsubscription/email/subject.txt and modelsubscription/email/body.txt with
         \*\*kwargs and invitation in the context.
         '''
         if subscription.email:

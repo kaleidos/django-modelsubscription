@@ -1,5 +1,5 @@
-Welcome to django-viter's documentation!
-========================================
+Welcome to django-modelsubscription's documentation!
+====================================================
 
 django-modelsubscriptio allows you to subscribe users or emails to your Django
 models modify events
@@ -130,6 +130,6 @@ API
 .. toctree::
     :maxdepth: 3
     
-    viter
+    modelsubscription
 
 Made by `Kaleidos <http://www.kaleidos.net/>`_. 
