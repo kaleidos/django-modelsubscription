@@ -181,7 +181,7 @@ htmlhelp_basename = 'django-modelsubscriptiondoc'
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
   ('index', 'django-modelsubscription.tex', u'django-modelsubscription Documentation',
-   u'Jesús Espino', 'manual'),
+   u'Jesús Espino', 'howto'),
 ]
 
 # The name of an image file (relative to this directory) to place at the top of
