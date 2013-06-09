@@ -1,10 +1,13 @@
 from django.test import TestCase
-from ..models import Subscription
-from .models import TestModel
-from django.core.exceptions import ValidationError
-from django.template import TemplateSyntaxError, Template, Context
 from django.core import mail
+from django.core.management import call_command
 from django.contrib.auth.models import User
+
+call_command('syncdb', interactive=False)
+
+from .models import TestModel
+from modelsubscription.models import Subscription
+
 
 class SubscriptableMixinTest(TestCase):
     def setUp(self):

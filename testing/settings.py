@@ -5,7 +5,8 @@ AUTHNET_TRANSACTION_KEY = ''
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3'
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'test'
     },
 }
 
@@ -21,7 +22,7 @@ INSTALLED_APPS = [
     'django.contrib.sites',
     'django.contrib.staticfiles',
     'modelsubscription',
-    'modelsubscription.tests',
+    'testing',
 ]
 
 LANGUAGE_CODE = 'en'

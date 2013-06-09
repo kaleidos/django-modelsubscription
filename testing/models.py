@@ -1,5 +1,6 @@
 from django.db import models
-from ..models import *
+
+from modelsubscription.models import *
 
 class TestModel(SubscriptableMixin, models.Model):
     pass
