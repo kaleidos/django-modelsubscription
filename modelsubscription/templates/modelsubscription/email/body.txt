@@ -1,4 +1,1 @@
-{% load i18n %}
-{% blocktrans %}
-The object {{obj}} has been updated.
-{% endblocktrans %}
+{% load i18n %}{% blocktrans %}The object {{obj}} has been updated.{% endblocktrans %}

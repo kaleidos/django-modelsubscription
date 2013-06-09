@@ -24,7 +24,7 @@ class SubscriptableMixinTest(TestCase):
         self.assertEqual(len(mail.outbox), 0)
         self.test.save()
         self.assertEqual(len(mail.outbox), 1)
-        self.assertEqual(mail.outbox[0].subject, 'Object TestModel object updated\n')
+        self.assertEqual(mail.outbox[0].subject, 'Object TestModel object updated')
         self.assertEqual(mail.outbox[0].body, 'The object TestModel object has been updated.\n')
 
     def test_subscribe_user(self):

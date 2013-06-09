@@ -1,4 +1,2 @@
 {% load i18n %}
-{% blocktrans %}
-Object {{obj}} updated
-{% endblocktrans %}
+{% blocktrans %}Object {{obj}} updated{% endblocktrans %}

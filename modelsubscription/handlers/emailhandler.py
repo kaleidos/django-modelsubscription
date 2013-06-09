@@ -27,6 +27,7 @@ class EmailHandler(SubscriptionHandlerBase):
 
         subject = subject_template.render(context)
         subject = ' '.join(subject.split('\n')) # No newlines in subject lines allowed
+        subject = subject.strip()
 
         body = body_template.render(context)
 
